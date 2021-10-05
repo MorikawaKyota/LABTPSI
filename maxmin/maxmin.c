@@ -2,36 +2,37 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-void PopolazioneArray(int *numeri, int qtaNum)
+void PopolazioneArray(int numeri[], int qtaNum)
 {
 	printf("Adesso inserisci i numeri.\n");
-	for(int i=0; i<qtaNum; i++)ù
+	int i;
+	for(i=0; i<qtaNum; i++)
 	{
-		cin >> numeri[i];
+		scanf("%d", &numeri[i]);
 	}
 }
 
-int CalcoloMax(int *numeri, int qtaNum)
+int CalcoloMax(int numeri[], int qtaNum)
 {
 	int max = numeri[0];
 	for(int i=1; i<qtaNum; i++)
 	{
 		if(numeri[i] > max)
 		{
-			max=numeri[i];
+			max= numeri[i];
 		}
 	}
 	return max;
 }
 
-int CalcoloMin(int *numeri, int qtaNum)
+int CalcoloMin(int numeri[], int qtaNum)
 {
 	int min = numeri[0];
 	for(int i=1; i<qtaNum; i++)
 	{
 		if(numeri[i]<min)
 		{
-			min=numeri[i];
+			min= numeri[i];
 		}
 	}
 	return min;
@@ -43,13 +44,14 @@ int main()
 	do
 	{
 		printf("Indicare la quantità di numeri da inserire di cui vuoi trovare il massimo ed il minimo.\n");
+		scanf("%d", &qtaNum);
 	}while(qtaNum<=0);
 
 	int numeri [qtaNum];
 
-	PopolazioneArray(int *numeri,int qtaNum);
-	int max = CalcoloMax(int *numeri, int qtaNum);
-	int min = CalcoloMin(int *numeri, int qtaNum);
+	PopolazioneArray(numeri, qtaNum);
+	int max = CalcoloMax(numeri, qtaNum);
+	int min = CalcoloMin(numeri, qtaNum);
 
 	printf("Il minimo e il massimo dei numeri inseriti sono rispettivamente %d è %d.\n", min, max);
 	return 0;
