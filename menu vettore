@@ -1,8 +1,0 @@
-1 stampa elementi vettore
-2 stampa inversa elementi vettore
-3 stampa tutti i numeri pari
-4 stampa tutti i numeri dispari
-5 ricerca numero nell'array (letto in input)
-6 eliminare un elemento dall'array (se esistente)
-7 scambiare a due a due le posizioni del vettore (1,2,3,4 => 2,1,4,3; attenzione se lunghezza dispari)
-8 ordinare il vettore (ordinamento a scelta)
