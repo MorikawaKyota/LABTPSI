@@ -57,8 +57,15 @@ int main(int argc, char *argv[])
 
 	if(strcmp(argv[3], "-c") == 0)
 	{
-		frequenza = SearchChar(argv[1], argv[4]);
-		OutPutting(argv[2], frequenza, argv[4], argv[3]);
+		if(strlen(argv[4]) == 1)
+		{
+			frequenza = SearchChar(argv[1], argv[4]);
+			OutPutting(argv[2], frequenza, argv[4], argv[3]);
+		}
+		else
+		{
+			printf("Hai inserito troppe lettere.\n");
+		}
 	}
 	else if(strcmp(argv[3], "-p") == 0)
 	{
