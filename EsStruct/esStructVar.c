@@ -2,27 +2,48 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(int argc, char argv[])
-{
-	typedef struct
+typedef struct
 	{
 		char name[50];
-		char surname[100]
+		char surname[100];
 		int age;
-	}students_t;
-
+	}student_t;
+	
+void ArrayInitialize(student_t array[], size_t size)
+{
 	char *names[] = {"Luca","Lorenzo","Davide", "Luca"};
 	char *surnames[] = {"Montini","Canali","Fiorini", "Greggio"};
 	int age[] = {22,24,24,26};
-	int indexOldest = 0;
-	
-	for(int i = 0; i < 4; i++)
+	for(int i = 0; i < size / sizeof(array[0]); i++)
 	{
-		if(age[i + 1] >= age[i])
-		{
-			indexOldest = i;
-		}
+		strcpy(array[i].name, names[i]);
+		strcpy(array[i].surname, surnames[i]);
+		array[i].age = age[i];
+		printf("%d\n", i);
 	}
-	printf("%s\n", names[indexOldest]);
+}
+
+int AgeCompare(student_t array[], int *index, size_t size)
+{
+	for(int i = 0; i < size / sizeof(array[0]) - 1; i++)
+		{
+			if(array[i + 1].age >= array[i].age)
+				{
+					*index = i + 1;
+				}
+		}
+	return *index;
+}
+
+int main(int argc, char argv[])
+{
+	int indexOldest = 0;
+	student_t students[4];
+	size_t arrSize = sizeof students;
+	
+	ArrayInitialize(students, arrSize);
+	AgeCompare(students, &indexOldest, arrSize);
+	
+	printf("%s is the oldest.\n", students[indexOldest].name);
 	return 0;
 }
