@@ -23,16 +23,17 @@ void ArrayInitialize(student_t array[], size_t size)
 	}
 }
 
-int AgeCompare(student_t array[], int *index, size_t size)
+int AgeCompare(student_t array[], size_t size)
 {
+	int indexOldest = 0;
 	for(int i = 0; i < size / sizeof(array[0]) - 1; i++)
 		{
 			if(array[i + 1].age >= array[i].age)
 				{
-					*index = i + 1;
+					indexOldest = i + 1;
 				}
 		}
-	return *index;
+	return indexOldest;
 }
 
 int main(int argc, char argv[])
@@ -42,7 +43,7 @@ int main(int argc, char argv[])
 	size_t arrSize = sizeof students;
 	
 	ArrayInitialize(students, arrSize);
-	AgeCompare(students, &indexOldest, arrSize);
+	indexOldest = AgeCompare(students, arrSize);
 	
 	printf("%s is the oldest.\n", students[indexOldest].name);
 	return 0;
