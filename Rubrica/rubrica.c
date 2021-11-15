@@ -15,48 +15,14 @@ int Load(contatto_t array[], size_t size, char inputFileName[])
 	char line[100];
 	int contattoQta = 0;
 	
-	for(int i = 0; i < size / sizeof(array[0]); i++)
+	while(!feof(inputFile))
 	{
-		if(fscanf(inputFile, "%s%s%s", line) == 1)
-		{
-			char delimiter[] = " ";
-			char* tokens = strtok(line, delimiter);
-			strcpy(array[i].nome, tokens);
-			tokens = strtok(NULL, delimiter);
-			strcpy(array[i].cognome, tokens);
-			tokens = strtok(NULL, delimiter);
-			strcpy(array[i].numTelefono, tokens);
-			
-			contattoQta++;
-		}
-		else
-		{
-			return contattoQta;
-		}
+		fscanf(inputFile, "%s %s %s", array[contattoQta].nome, array[contattoQta].cognome, array[contattoQta].numTelefono);
+		contattoQta++;
 	}
-
-}
-
-void ShowContatti(contatto_t array[], int contattoQta)
-{
-	for(int i = 0; i < contattoQta; i++)
-	{
-			printf("%s %s %s\n", array[i].nome, array[i].cognome, array[i].numTelefono);
-	}
-}
-
-void AddContatto(contatto_t array[], int contattoQta)
-{
-	printf("Inserire i dati del nuovo contatto secondo il formato 'nome cognome numero telefonico'\n");
-	char newContatto[100];
-	scanf("%s", newContatto);
-	char delimiter[] = " ";
-	char* tokens = strtok(newContatto, delimiter);
-	strcpy(array[contattoQta + 1].nome, tokens);
-	tokens = strtok(NULL, delimiter);
-	strcpy(array[contattoQta + 1].cognome, tokens);
-	tokens = strtok(NULL, delimiter);
-	strcpy(array[contattoQta + 1].numTelefono, tokens);
+	
+	fclose(inputFile);
+	return contattoQta;
 }
 
 int SearchContatto(contatto_t array[], int contattoQta, char numTel[])
@@ -70,13 +36,47 @@ int SearchContatto(contatto_t array[], int contattoQta, char numTel[])
 	}
 }
 
+void ShowContatti(contatto_t array[], int contattoQta)
+{
+	for(int i = 0; i < contattoQta; i++)
+	{
+			printf("%s %s %s\n", array[i].nome, array[i].cognome, array[i].numTelefono);
+	}
+}
+
+void AddContatto(contatto_t array[], int contattoQta)
+{
+	printf("Inserire i dati del nuovo contatto.\nInserire il numero telefonico.");
+	char newContattoNum[10];
+	scanf("%s", newContattoNum);
+	int exist = -1;
+	exist = SearchContatto(array, contattoQta, newContattoNum);
+	if(exist != -1)
+	{
+		strcpy(array[contattoQta + 1].numTelefono, newContattoNum);
+		char newContattoData[100];
+		printf("Inserire il nome\n");
+		scanf("%s", newContattoData);
+		strcpy(array[contattoQta + 1].nome, newContattoData);
+		printf("Inserire il cognome\n");
+		scanf("%s", newContattoData);
+		strcpy(array[contattoQta + 1].cognome, newContattoData);
+		printf("Nuovo contatto aggiunto.\n");
+	}
+	else
+	{
+		printf("Il numero esiste gia' nella rubrica.!\n");
+	}
+	
+}
+
 void EliminateContatto(contatto_t array[], int *contattoQta)
 {
 	printf("Indicare il numero telefonico del contatto che vuoi eliminare.\n");
 	char contattoNumTel[10];
 	scanf("%s", contattoNumTel);
 	int indexContatto = -1;
-	indexContatto = SearchContatto(array, contattoQta, contattoNumTel);
+	indexContatto = SearchContatto(array, *contattoQta, contattoNumTel);
 	
 	if(indexContatto != -1)
 	{
@@ -86,6 +86,7 @@ void EliminateContatto(contatto_t array[], int *contattoQta)
 			strcpy(array[indexContatto].cognome, array[indexContatto + 1].cognome);
 			strcpy(array[indexContatto].numTelefono, array[indexContatto + 1].numTelefono);
 		}
+		printf("Contatto eliminato dalla rubrica.\n");
 		(*contattoQta)--;
 	}
 	else
@@ -101,6 +102,7 @@ void Write(contatto_t array[], int contattoQta, char outputFileName[])
 	{
 			fprintf(outputFile, "%s %s %s\n", array[i].nome, array[i].cognome, array[i].numTelefono);
 	}
+	fclose(outputFile);
 }
 
 int main(int argc, char *argv[])
