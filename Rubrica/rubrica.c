@@ -12,12 +12,13 @@ typedef struct
 int Load(contatto_t array[], size_t size, char inputFileName[])
 {
 	FILE *inputFile = fopen(inputFileName, "r");
-	char line[100];
 	int contattoQta = 0;
 	
 	while(!feof(inputFile))
 	{
-		fscanf(inputFile, "%s %s %s", array[contattoQta].nome, array[contattoQta].cognome, array[contattoQta].numTelefono);
+		fscanf(inputFile, "%s%s%s\n", array[contattoQta].nome, array[contattoQta].cognome, array[contattoQta].numTelefono);
+		
+		printf("%s %s %s\n", array[contattoQta].nome, array[contattoQta].cognome, array[contattoQta].numTelefono);
 		contattoQta++;
 	}
 	
@@ -51,7 +52,7 @@ void AddContatto(contatto_t array[], int contattoQta)
 	scanf("%s", newContattoNum);
 	int exist = -1;
 	exist = SearchContatto(array, contattoQta, newContattoNum);
-	if(exist != -1)
+	if(exist == -1)
 	{
 		strcpy(array[contattoQta + 1].numTelefono, newContattoNum);
 		char newContattoData[100];
@@ -114,7 +115,7 @@ int main(int argc, char *argv[])
 	{
 		int contattoQta = Load(contatti, size, argv[1]);
 		
-		char option;
+		int option;
 		do
 		{
 			printf("Scegliere l'opzione da svolgere:\n");
@@ -122,26 +123,26 @@ int main(int argc, char *argv[])
 			printf("2) aggiungere un contatto alla rubrica\n");
 			printf("3) eliminare un contatto dalla rubrica dopo averlo ricercato con il suo numero di telefono\n");
 			printf("4)Terminare il programma\n");
-			scanf("%c", &option);
+			scanf("%d", &option);
 			
 			switch(option)
 			{
-				case '1':
+				case 1:
 					{
 						ShowContatti(contatti, contattoQta);
 						break;
 					}
-				case '2':
+				case 2:
 					{
 						AddContatto(contatti, contattoQta);
 						break;
 					}
-				case '3':
+				case 3:
 					{
 						EliminateContatto(contatti, &contattoQta);
 						break;
 					}
-				case '4':
+				case 4:
 					{
 						if(argc == 2)
 						{
@@ -159,7 +160,7 @@ int main(int argc, char *argv[])
 						break;
 					}
 			}
-		}while(option != '4');
+		}while(option != 4);
 	}
 	else
 	{
