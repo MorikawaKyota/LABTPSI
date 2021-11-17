@@ -6,7 +6,7 @@ typedef struct
 {
 	char nome[50];
 	char cognome[100];
-	char numTelefono[10];
+	char numTelefono[100];
 }contatto_t;
 
 int Load(contatto_t array[], size_t size, char inputFileName[])
@@ -35,6 +35,7 @@ int SearchContatto(contatto_t array[], int contattoQta, char numTel[])
 			return i;
 		}
 	}
+	return -1;
 }
 
 void ShowContatti(contatto_t array[], int contattoQta)
