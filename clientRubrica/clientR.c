@@ -2,15 +2,14 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
+//#include <netinet/in.h>
+//#include <netdb.h>
 #include <string.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <errno.h>
-#include <ctype.h>
+//#include <fcntl.h>
+//#include <signal.h>
+//#include <errno.h>
+//#include <ctype.h>
 #include <unistd.h>
-#include <string.h>
 #include <arpa/inet.h>
 
 #define DIMBUFF 512
